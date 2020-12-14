@@ -1,5 +1,7 @@
 import {Modal, Button, InputGroup, FormControl} from 'react-bootstrap';
 import React, {Component} from 'react';
+import axios from 'axios';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MyLogin extends Component {
@@ -8,6 +10,19 @@ class MyLogin extends Component {
     val_pw:"",
     msg:""
   }
+
+  haha(id,pw) {
+    axios.post("http://localhost:8000/login", {
+            id: id,
+            pw: pw})
+            .then(({data}) => {
+            console.log(data)
+            if(data.check === false){
+              this.setState({msg:data.type})
+            }
+        }) 
+    }
+    
     render(){
         return(
           <div>
@@ -48,10 +63,10 @@ class MyLogin extends Component {
                 onChange={e => this.setState({ val_pw: e.target.value })}
               />
             </InputGroup>
-            <p>{this.state.msg}</p>
+            <p style={{color:'red', textAlign:'center'}}>{this.state.msg}</p>
             </Modal.Body>
             <Modal.Footer>
-              <Button  onClick={()=>{this.props.inputData(this.state.val_id,this.state.val_pw)}}>Login</Button>
+              <Button  onClick={()=>{this.haha(this.state.val_id,this.state.val_pw)}}>Login</Button>
               <Button variant="dark" onClick={()=>{this.props.onHide()}}>Close</Button>
             </Modal.Footer>
           </Modal>
