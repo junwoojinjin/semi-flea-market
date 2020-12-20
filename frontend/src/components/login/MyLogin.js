@@ -21,7 +21,7 @@ class MyLogin extends Component {
               this.setState({msg:data.type});
             }
             if(data.check === true){
-              alert('로그인 성공!');
+              this.props.ChangeUser(data.user_id,data.user_name);
             }
         }) 
     }

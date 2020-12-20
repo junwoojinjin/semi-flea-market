@@ -21,7 +21,7 @@ const computeUserLogin = (req, res) => {
         }
         else{
           if(user[0].login_pw == pw){
-              res.send({check:true,user_id:user[0].id})
+              res.send({check:true,user_id:user[0].id,user_name:user[0].name})
           }
           else{
               res.send({check:false,type:'Wrong PW'});
