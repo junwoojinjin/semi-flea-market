@@ -17,6 +17,7 @@ class MyRegister extends Component {
     msg_pw:"",
     msg_pw_color:"red",
     msg_id_color:"red",
+    is_before_register:true
   }
   checkID(){
     axios.post("http://localhost:8000/checkID", {
@@ -36,10 +37,12 @@ class MyRegister extends Component {
             pw:this.state.val_pw,
             name:this.state.val_name})
             .then(({data}) => {
-            this.props.onHide(true);
+            this.setState({is_before_register:false})
         }) 
   }
     render(){
+      if(this.state.is_before_register)
+      {
         return(
           <div>
             <Modal
@@ -151,6 +154,32 @@ class MyRegister extends Component {
           </Modal>
           </div>
         );
+      }
+      else{
+        return(
+          <div>
+            <Modal
+            show = {true}
+            dialogClassName="modal-90w"
+             aria-labelledby="example-custom-modal-styling-title"
+            centered
+          >
+            <Modal.Header >
+              <Modal.Title id="contained-modal-title-vcenter">
+                Register Success!
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>Congratulations! You can log in now.</p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button  onClick={()=>{this.props.onHide(true)}}>Go Login</Button>
+              <Button variant="dark" onClick={()=>{this.props.onHide(false)}}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+          </div>
+        );
+      }
     }
 }
 

@@ -22,7 +22,18 @@ class MyNavbar extends Component {
         if(this.state.show_register){
             _modal =
             <RegisterModal 
-                onHide = {()=>{this.setState({show_register:false})}}
+                onHide = {(check_register)=>{
+                        if(check_register){
+                            this.setState({
+                                show_register:false,
+                                show_login:true
+                            });
+                        }
+                        else{
+                            this.setState({show_register:false})
+                        }
+                    }
+                }
                 inputData = {(id,pw)=>{alert(id+pw)}}>
             </RegisterModal>;
         }
