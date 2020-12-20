@@ -18,7 +18,10 @@ class MyLogin extends Component {
             .then(({data}) => {
             console.log(data)
             if(data.check === false){
-              this.setState({msg:data.type})
+              this.setState({msg:data.type});
+            }
+            if(data.check === true){
+              alert('로그인 성공!');
             }
         }) 
     }

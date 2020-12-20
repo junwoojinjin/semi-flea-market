@@ -60,7 +60,22 @@ const computeUserRegister = (req, res) => {
       }); 
 };
 
+
+
+const checkUserID = (req, res) => {
+    const {id } = req.body;
+    connection.query(`SELECT * FROM user WHERE login_id='${id}'`, function (error, results, fields) {
+        if( results.length !== 0){
+            res.send({check:false});
+        }
+        else{
+            res.send({check:true});
+        }
+    });
+}
+
 module.exports = {
     computeUserLogin,
-    computeUserRegister
+    computeUserRegister,
+    checkUserID
 };

@@ -2,8 +2,8 @@ import {Navbar , NavDropdown , Nav, Form, FormControl, Button} from 'react-boots
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/nav.css';
-import Login from '../login/MyLogin';
-import Register from '../login/MyRegister';
+import LoginModal from '../login/MyLogin';
+import RegisterModal from '../login/MyRegister';
 class MyNavbar extends Component {
     state = {
         show_login:false,
@@ -11,17 +11,21 @@ class MyNavbar extends Component {
     };
 
     render(){
-        var _login = '';
-        var _register = '';
-        if(this.state.show_login)
-        {
-            _login = 
-            <Login 
+        var _modal = '';
+        if(this.state.show_login){
+            _modal = 
+            <LoginModal 
                 onHide = {()=>{this.setState({show_login:false})}}
                 inputData = {(id,pw)=>{alert(id+pw)}}
-            ></Login>;
+            ></LoginModal>;
         }
-        
+        if(this.state.show_register){
+            _modal =
+            <RegisterModal 
+                onHide = {()=>{this.setState({show_register:false})}}
+                inputData = {(id,pw)=>{alert(id+pw)}}>
+            </RegisterModal>;
+        }
         return(
             <div>
                 <div style={{backgroundColor:'#F8F9FA'}}>
@@ -32,7 +36,7 @@ class MyNavbar extends Component {
                         <Form inline className="mr-2 ml-auto">
                             <Button size="sm" variant="outline-primary" onClick={function() {
                                 this.setState({
-                                    show_login:true
+                                    show_register:true
                                 });
                             }.bind(this)}>Register</Button>
                             <Button className="ml-3" size="sm" variant="outline-dark" onClick={function() {
@@ -56,7 +60,7 @@ class MyNavbar extends Component {
                     </div>
                     
                 </div>
-                {_login}
+                {_modal}
             </div>
         );
     }
