@@ -64,6 +64,7 @@ const computeUserRegister = (req, res) => {
 
 const checkUserID = (req, res) => {
     const {id } = req.body;
+  
     connection.query(`SELECT * FROM user WHERE login_id='${id}'`, function (error, results, fields) {
         if( results.length !== 0){
             res.send({check:false});
@@ -74,8 +75,52 @@ const checkUserID = (req, res) => {
     });
 }
 
+const getUsers = (req, res) => {
+
+    connection.query(`SELECT * FROM user`, function (error, results, fields) {
+        if(error)
+        {
+            console.log(error);
+        }
+        else{
+            res.send(results);
+        }
+    });
+}
+
+const deleteUserByID = (req, res) => {
+    console.log('???',req.data)
+    const {user_id} = req.body;
+    connection.query(`DELETE FROM user WHERE id = '${user_id}';`, function (error, results, fields) {
+        if(error)
+        {
+            console.log(error);
+        }
+        else{
+            res.send(true);
+        }
+    });
+}
+
+const ChangeUserByID = (req, res) => {
+    console.log('???',req.body)
+    const {user_id,name} = req.body;
+    connection.query(`UPDATE  user SET name = '${name}' WHERE (id = '${user_id}');`, function (error, results, fields) {
+        if(error)
+        {
+            console.log(error);
+        }
+        else{
+            res.send(true);
+        }
+
+    });
+}
 module.exports = {
     computeUserLogin,
     computeUserRegister,
-    checkUserID
+    checkUserID,
+    getUsers,
+    deleteUserByID,
+    ChangeUserByID
 };

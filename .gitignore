@@ -5,6 +5,7 @@ node_modules
 
 config.json
 backend/public
+backend/product_img
 # testing
 coverage
 

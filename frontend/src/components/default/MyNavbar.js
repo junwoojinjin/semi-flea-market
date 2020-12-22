@@ -67,6 +67,7 @@ class MyNavbar extends Component {
                         <Col>
                         <Button size="sm mt-1" variant="outline-dark" onClick={function() {
                             this.props.logout();
+                            
                         }.bind(this)}>Logout</Button>
                         </Col>
                     </Row>
